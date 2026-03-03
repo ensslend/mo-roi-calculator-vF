@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Momentus Venue Impact Calculator — See Your Revenue Potential</title>
+<meta name="description" content="Calculate how much revenue, time, and operational savings your venue could gain with the Momentus platform. Free interactive calculator for convention centers, performing arts centers, stadiums, arenas, universities, corporate campuses and more."/>
+<meta name="keywords" content="venue management software, event management ROI, convention center technology, stadium software, performing arts venue software, university event management, Momentus platform, venue impact calculator"/>
+<meta property="og:title" content="Momentus Venue Impact Calculator — See Your Revenue Potential"/>
+<meta property="og:description" content="Estimate your venue's potential revenue increase, operational savings, and time savings with Momentus. Personalized by venue type in seconds."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Momentus Venue Impact Calculator"/>
+<meta name="twitter:description" content="See how much revenue your venue could gain with Momentus. Free interactive calculator."/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="Momentus Technologies"/>
+<link rel="canonical" href="https://gomomentus.com/impact-calculator"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Momentus Venue Impact Calculator",
+  "description": "Interactive impact calculator for venue and event management professionals. Estimate revenue increases, operational savings, and time savings by venue type.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "Momentus Technologies", "url": "https://gomomentus.com" }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,html,body{box-sizing:border-box;margin:0;padding:0}
+.layout-outer *{box-sizing:border-box}
+.layout-outer input,
+.layout-outer button,
+.layout-outer a{font-family:'Plus Jakarta Sans',sans-serif}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#080921;color:#fff;-webkit-font-smoothing:antialiased}
+
+/* ── Outer wrapper (full-width bg, centered content) ── */
+.layout-outer{min-height:100vh;background:linear-gradient(135deg,#0c0e2e 0%,#080921 100%)}
+.layout{display:flex;min-height:100vh;flex-direction:column;max-width:1200px;margin:0 auto;width:100%}
+@media(min-width:1024px){.layout{flex-direction:row}}
+
+/* ── Left panel ── */
+.left{background:linear-gradient(160deg,#16184E 0%,#101340 60%,#0c0e2e 100%);padding:32px 24px;overflow-y:auto;border-right:1px solid rgba(255,255,255,.07)}
+@media(min-width:768px){.left{padding:40px 32px}}
+@media(min-width:1024px){.left{width:440px;flex-shrink:0;min-height:100vh}}
+@media(min-width:1280px){.left{width:480px;padding:48px 40px}}
+
+/* ── Right panel ── */
+.right{background:transparent;flex:1;padding:32px 20px 48px;position:relative;overflow:hidden}
+@media(min-width:768px){.right{padding:40px 28px}}
+@media(min-width:1024px){.right{position:sticky;top:0;height:100vh;overflow-y:auto;padding:48px 36px 48px 28px}}
+.rinner{position:relative;z-index:1;max-width:100%;margin:0 auto}
+@media(min-width:768px){.rinner{max-width:560px}}
+@media(min-width:1024px){.rinner{max-width:520px}}
+
+/* ── Ambient orbs ── */
+.orb1{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:rgba(65,70,224,.12);border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb2{position:absolute;bottom:-80px;left:-80px;width:320px;height:320px;background:rgba(178,102,228,.08);border-radius:50%;filter:blur(70px);pointer-events:none}
+
+/* ── Text gradients ── */
+.gt-gold{background:linear-gradient(135deg,#F5DA41,#d49500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt-pur{background:linear-gradient(135deg,#4146E0,#B266E4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── Badge ── */
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,218,65,.08);color:#F5DA41;font-size:10px;font-weight:800;padding:5px 12px;border-radius:999px;border:1px solid rgba(245,218,65,.2);text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#F5DA41;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── Section headers ── */
+.sec-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.sec-num-1{background:#F5DA41;color:#16184E}
+.sec-num-2{background:#4146E0;color:#fff}
+.sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-title{font-size:14px;font-weight:800;color:#fff}
+
+/* ── Venue type cards ── */
+.venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:28px}
+@media(min-width:480px){.venue-grid{gap:10px}}
+.vc{background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.07);border-radius:13px;padding:12px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:9px}
+@media(min-width:480px){.vc{padding:14px;gap:10px}}
+.vc:hover{background:rgba(255,255,255,.06);border-color:rgba(245,218,65,.3);transform:translateY(-1px)}
+.vc.on{background:rgba(245,218,65,.07);border-color:rgba(245,218,65,.6);box-shadow:0 0 0 1px rgba(245,218,65,.15)}
+.vc-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0}
+@media(min-width:480px){.vc-icon{font-size:22px;width:36px}}
+.vc-name{font-size:12px;font-weight:700;color:#fff;line-height:1.2}
+@media(min-width:480px){.vc-name{font-size:13px}}
+.vc-desc{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px;line-height:1.3;display:none}
+@media(min-width:480px){.vc-desc{display:block}}
+.vc-check{width:16px;height:16px;background:#F5DA41;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0;opacity:0;transform:scale(.6);transition:all .18s}
+.vc.on .vc-check{opacity:1;transform:scale(1)}
+
+/* ── Range sliders ── */
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.1);outline:none;cursor:pointer;touch-action:pan-y}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#F5DA41;cursor:pointer;box-shadow:0 0 0 4px rgba(245,218,65,.15)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#F5DA41;border:none;cursor:pointer}
+
+/* ── Number inputs ── */
+.ni{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:9px;padding:9px 12px;font-family:inherit;font-size:14px;font-weight:700;outline:none;width:88px;text-align:center;transition:all .18s}
+.ni:focus{border-color:rgba(245,218,65,.5);background:rgba(245,218,65,.06)}
+.ni-wide{width:130px;text-align:right}
+.ni-disp{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:9px;padding:9px 12px;font-size:14px;font-weight:700;width:66px;text-align:center;cursor:default;user-select:none}
+
+/* ── Field wrapper ── */
+.field{margin-bottom:20px}
+.field-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px}
+.field-row>div{min-width:0}
+.field-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.75)}
+.field-hint{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px}
+.range-labels{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.28);margin-top:4px}
+.range-meta{display:flex;justify-content:space-between;font-size:11px;margin-top:6px;color:rgba(255,255,255,.35);flex-wrap:wrap;gap:4px}
+
+/* ── Dollar prefix ── */
+.dollar-wrap{position:relative;display:inline-block}
+.dollar-wrap .pfx{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:rgba(255,255,255,.4);pointer-events:none}
+.dollar-wrap .ni-wide{padding-left:22px}
+
+/* ── Info box ── */
+.info-box{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.18);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:18px}
+.info-box svg{flex-shrink:0;margin-top:1px}
+.info-box p{font-size:11px;color:rgba(147,197,253,.85);line-height:1.6;margin:0}
+
+/* ── Social proof / quotes ── */
+.proofs{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.06)}
+.proof-title{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:12px}
+.proof-grid{display:flex;flex-direction:column;gap:10px}
+.proof-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px}
+.proof-quote{font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:5px;font-style:italic}
+.proof-attr{font-size:10px;color:rgba(255,255,255,.3);font-weight:600}
+.proof-stat{color:#F5DA41;font-weight:800}
+
+/* ── Trust stats ── */
+.trust{margin-top:20px}
+.trust-stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.trust-stat{display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.38)}
+.trust-stat svg{color:#F5DA41;flex-shrink:0}
+.trust-note{font-size:10px;color:rgba(255,255,255,.18);line-height:1.6}
+
+/* ── Result cards ── */
+.rc{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px 18px;margin-bottom:12px;transition:border-color .25s}
+@media(min-width:1024px){.rc{padding:18px 20px;margin-bottom:14px}}
+.rc:hover{border-color:rgba(255,255,255,.13)}
+.slbl{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,218,65,.65);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.slbl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(245,218,65,.2),transparent)}
+
+/* ── Bar track ── */
+.bt{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:7px}
+.bf{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+
+/* ── Stat pills ── */
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+@media(min-width:1024px){.stat3{gap:10px;margin-bottom:14px}}
+.stat-pill{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:12px;text-align:center}
+@media(min-width:1024px){.stat-pill{padding:14px;border-radius:14px}}
+.stat-pill-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);margin-bottom:5px}
+.stat-pill-val{font-size:18px;font-weight:800;line-height:1}
+@media(min-width:1024px){.stat-pill-val{font-size:20px}}
+.stat-pill-sub{font-size:10px;color:rgba(255,255,255,.28);margin-top:3px}
+
+/* ── Buttons ── */
+.btn-primary{background:#F5DA41;color:#16184E;font-weight:800;font-size:14px;border:none;border-radius:12px;padding:14px 24px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 28px rgba(245,218,65,.28);font-family:inherit;text-decoration:none;justify-content:center;width:100%}
+.btn-primary:hover{box-shadow:0 12px 40px rgba(245,218,65,.42);transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 18px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,.11);color:#fff;border-color:rgba(255,255,255,.22)}
+
+/* ── CTA card ── */
+.cta-card{background:linear-gradient(135deg,rgba(245,218,65,.06),rgba(245,218,65,.02));border:1px solid rgba(245,218,65,.15);border-radius:18px;padding:20px;margin-bottom:12px}
+@media(min-width:1024px){.cta-card{padding:22px;margin-bottom:14px}}
+.cta-card h3{font-size:15px;font-weight:800;color:#fff;margin-bottom:6px}
+.cta-card p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:16px}
+
+/* ── Share URL ── */
+.url-card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px}
+@media(min-width:1024px){.url-card{padding:16px 18px}}
+.url-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+.url-card-title{font-size:12px;font-weight:700;color:#fff}
+.url-card-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px}
+.url-copy-btn{font-size:11px;font-weight:700;color:#F5DA41;background:rgba(245,218,65,.1);border:1px solid rgba(245,218,65,.2);border-radius:7px;padding:5px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;font-family:inherit;white-space:nowrap;flex-shrink:0}
+.url-copy-btn:hover{background:rgba(245,218,65,.18)}
+.url-display{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 12px;font-size:10px;color:rgba(255,255,255,.4);font-family:monospace;word-break:break-all;overflow-wrap:break-word;cursor:pointer;line-height:1.5;transition:all .18s}
+@media(min-width:768px){.url-display{font-size:11px}}
+.url-display:hover{border-color:rgba(245,218,65,.3);color:rgba(255,255,255,.65)}
+
+/* ── Time callout ── */
+.time-box{background:rgba(178,102,228,.06);border:1px solid rgba(178,102,228,.18);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+@media(min-width:1024px){.time-box{padding:14px 16px;margin-bottom:14px}}
+.time-icon{width:30px;height:30px;border-radius:8px;background:rgba(178,102,228,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+@media(min-width:1024px){.time-icon{width:32px;height:32px}}
+
+/* ── Empty state ── */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;text-align:center;opacity:.35;padding:20px}
+@media(min-width:1024px){.empty{min-height:60vh}}
+.empty-icon{font-size:56px;margin-bottom:14px}
+@media(min-width:1024px){.empty-icon{font-size:64px}}
+.empty h2{font-size:18px;font-weight:800;margin-bottom:8px}
+@media(min-width:1024px){.empty h2{font-size:20px}}
+.empty p{font-size:13px;color:rgba(255,255,255,.5);max-width:240px;line-height:1.6}
+
+/* ── Venue badge ── */
+.vbadge{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+@media(min-width:1024px){.vbadge{margin-bottom:20px}}
+.vbadge-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+@media(min-width:1024px){.vbadge-icon{width:36px;height:36px;font-size:18px}}
+.vbadge-name{font-size:12px;font-weight:700;color:#fff}
+.vbadge-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.vbadge-reset{margin-left:auto;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:4px 10px;cursor:pointer;transition:all .15s;font-family:inherit;white-space:nowrap}
+.vbadge-reset:hover{color:#F5DA41;border-color:rgba(245,218,65,.3)}
+
+/* ── Hero ── */
+.hero-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px}
+@media(min-width:768px){.hero-lbl{font-size:11px;margin-bottom:8px}}
+.hero-num{font-size:44px;font-weight:900;line-height:1;margin-bottom:7px}
+@media(min-width:768px){.hero-num{font-size:52px}}
+@media(min-width:1024px){.hero-num{font-size:56px;margin-bottom:8px}}
+.hero-sub{font-size:12px;color:rgba(255,255,255,.4)}
+@media(min-width:768px){.hero-sub{font-size:13px}}
+.hero-sub strong{color:#fff;font-weight:600}
+.hero-line{height:2px;width:56px;background:linear-gradient(to right,#F5DA41,transparent);border-radius:1px;margin:12px 0 18px}
+@media(min-width:1024px){.hero-line{margin:14px 0 22px}}
+
+/* ── Corp RHS note ── */
+.corp-rhs-note{background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.18);border-radius:12px;padding:11px 14px;margin-bottom:16px;display:none}
+.corp-rhs-note .inner{display:flex;align-items:flex-start;gap:9px}
+.corp-rhs-note p{font-size:11px;color:rgba(147,197,253,.9);line-height:1.6;margin:0}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#34d399;color:#064e3b;font-weight:800;font-size:13px;padding:10px 22px;border-radius:999px;z-index:9999;box-shadow:0 8px 32px rgba(52,211,153,.4);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(65,70,224,.35);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div class="layout-outer">
+<div class="layout">
+
+  <!-- ════════════════════ LEFT PANEL ════════════════════ -->
+  <div class="left">
+
+    <div class="badge"><span class="badge-dot"></span>Momentus Impact Calculator</div>
+
+    <h1 style="font-size:26px;font-weight:900;line-height:1.2;margin-bottom:10px">
+      How much could<br>
+      <span class="gt-gold">your venue gain</span><br>
+      with Momentus?
+    </h1>
+    <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:24px;max-width:340px">
+      Adjust the inputs below and see your personalized impact estimate update live on the right.
+    </p>
+
+    <!-- Social Proof Stats -->
+    <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+        <div class="trust-stat">
+          <svg width="12" height="12" fill="#F5DA41" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          14% avg. revenue growth YoY
+        </div>
+        <div class="trust-stat">
+          <svg width="12" height="12" fill="none" stroke="#F5DA41" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          60%+ workload reduction
+        </div>
+        <div class="trust-stat">
+          <svg width="12" height="12" fill="none" stroke="#F5DA41" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          4,000+ venues trust Momentus
+        </div>
+      </div>
+      <p class="trust-note">Estimates based on aggregated Momentus customer data. Directional only &mdash; not a guarantee.</p>
+    </div>
+
+    <!-- STEP 1: Venue Type -->
+    <div class="sec-hdr">
+      <div class="sec-num sec-num-1">1</div>
+      <div class="sec-title">What type of venue do you operate?</div>
+    </div>
+
+    <div class="venue-grid" id="venueGrid"></div>
+
+    <!-- STEP 2: Venue Details (shown after selection) -->
+    <div id="detailsSection" style="display:none">
+      <div class="sec-hdr">
+        <div class="sec-num sec-num-2">2</div>
+        <div class="sec-title">Tell us about your venue</div>
+      </div>
+      <p id="detailsSubtitle" style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.5"></p>
+
+      <!-- Corporate info box -->
+      <div class="info-box" id="corpInfoBox" style="display:none">
+        <svg width="16" height="16" fill="none" stroke="#60a5fa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p>Corporate venues primarily generate impact through <strong style="color:#93c5fd">operational savings and efficiency gains</strong>.</p>
+      </div>
+
+      <!-- Events per year (always shown) -->
+      <div class="field">
+        <div class="field-row">
+          <div><div class="field-label" id="eventsLabel">Events per year</div></div>
+          <input type="number" class="ni" id="neInput" min="1" value="50"/>
+        </div>
+        <input type="range" id="neSlider" min="1" max="500" step="5" value="50"/>
+        <div class="range-labels"><span>1</span><span id="neMax">500</span></div>
+      </div>
+
+      <!-- Revenue per event (hidden for corporate) -->
+      <div class="field" id="rpeField">
+        <div class="field-row">
+          <div><div class="field-label" id="rpeLbl">Avg. revenue per event</div></div>
+          <div class="dollar-wrap">
+            <span class="pfx">$</span>
+            <input type="number" class="ni ni-wide" id="rpeInput" min="0" value="75000"/>
+          </div>
+        </div>
+        <input type="range" id="rpeSlider" min="0" max="500000" step="5000" value="75000"/>
+        <div class="range-labels"><span>$0</span><span id="rpeMax">$500k</span></div>
+      </div>
+
+      <!-- Revenue % (hidden for corporate) -->
+      <div class="field" id="revPctField">
+        <div class="field-row">
+          <div><div class="field-label">% of events generating revenue</div></div>
+          <div class="ni-disp" id="revPctDisp">100%</div>
+        </div>
+        <input type="range" id="revPctSlider" min="1" max="100" step="1" value="100"/>
+        <div class="range-meta">
+          <span id="revEventsMeta">50 revenue events/yr</span>
+          <span id="baselineRevMeta" style="font-weight:600;color:rgba(255,255,255,.45)"></span>
+        </div>
+      </div>
+
+    </div><!-- end detailsSection -->
+
+    
+
+  </div><!-- end left -->
+
+  <!-- ════════════════════ RIGHT PANEL ════════════════════ -->
+  <div class="right">
+    <div class="orb1"></div>
+    <div class="orb2"></div>
+    <div class="rinner">
+
+      <!-- Empty state -->
+      <div class="empty" id="emptyState">
+        <div class="empty-icon">🏛</div>
+        <h2>Select your venue type</h2>
+        <p>Choose a venue on the left and your personalized impact estimate will appear here instantly.</p>
+      </div>
+
+      <!-- Results -->
+      <div id="results" style="display:none">
+
+        <!-- Venue badge -->
+        <div class="vbadge">
+          <div class="vbadge-icon" id="rbIcon"></div>
+          <div>
+            <div class="vbadge-name" id="rbName"></div>
+            <div class="vbadge-sub">Based on Momentus customer benchmarks</div>
+          </div>
+          <button class="vbadge-reset" id="resetBtn">Reset</button>
+        </div>
+
+        <!-- Corporate RHS note -->
+        <div class="corp-rhs-note" id="corpRhsNote">
+          <div class="inner">
+            <svg width="15" height="15" fill="none" stroke="#60a5fa" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p>Corporate venues primarily generate impact through <strong style="color:#93c5fd">operational savings and efficiency gains</strong>.</p>
+          </div>
+        </div>
+
+        <!-- Hero metric -->
+        <div class="hero-lbl" id="heroLbl">Estimated annual revenue increase</div>
+        <div class="hero-num gt-gold" id="heroNum">$0</div>
+        <div class="hero-sub"><strong id="heroBenefit">$0</strong> <span id="heroBenefitLabel">total annual benefit (revenue + operational savings)</span></div>
+        <div class="hero-line"></div>
+
+        <!-- 3 stat pills -->
+        <div class="stat3">
+          <div class="stat-pill">
+            <div class="stat-pill-lbl">Savings</div>
+            <div class="stat-pill-val" style="color:#34d399" id="statSavings">$0</div>
+            <div class="stat-pill-sub">per year</div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-pill-lbl">Hours Saved</div>
+            <div class="stat-pill-val" style="color:#B266E4" id="statHours">0</div>
+            <div class="stat-pill-sub">per year</div>
+          </div>
+          <div class="stat-pill" id="stat3pill">
+            <div class="stat-pill-lbl" id="stat3lbl">Rev. Growth</div>
+            <div class="stat-pill-val" style="color:#F5DA41" id="stat3val">0%</div>
+            <div class="stat-pill-sub" id="stat3sub">of current rev.</div>
+          </div>
+        </div>
+
+        <!-- Annual breakdown -->
+        <div class="rc">
+          <div class="slbl">Estimated annual impact</div>
+          <div id="revRow" style="margin-bottom:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="display:flex;align-items:center;gap:7px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#4146E0;flex-shrink:0"></div>
+                <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7)">Revenue Increase</span>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:#fff" id="bvRev">$0</span>
+            </div>
+            <div class="bt"><div class="bf" id="bfRev" style="background:linear-gradient(90deg,#4146E0,#B266E4);width:0%"></div></div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="display:flex;align-items:center;gap:7px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#34d399;flex-shrink:0"></div>
+                <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7)">Operational Savings</span>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:#fff" id="bvSav">$0</span>
+            </div>
+            <div class="bt"><div class="bf" id="bfSav" style="background:#34d399;width:0%"></div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.07);padding-top:12px">
+            <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.45)">Total Annual Benefit</span>
+            <span style="font-size:16px;font-weight:800;color:#fff" id="bvTotal">$0</span>
+          </div>
+        </div>
+
+        <!-- Time savings -->
+        <div class="time-box">
+          <div class="time-icon">
+            <svg width="16" height="16" fill="none" stroke="#B266E4" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:3px">Time savings for your team</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.45)">
+              <span style="color:#B266E4;font-weight:700" id="hrsPerEvent">0 hrs</span> saved per event &nbsp;&middot;&nbsp;
+              <span style="color:#B266E4;font-weight:700" id="hrsPerYear">0 hrs/yr</span> back across your staff
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-card">
+          <h3>Want a more precise model?</h3>
+          <p>These are directional estimates based on industry benchmarks. Our team can build a tailored impact analysis using your actual data &mdash; specific to your venue, your team, and your goals.</p>
+          <a href="https://gomomentus.com/request-demo" target="_blank" class="btn-primary">
+            Talk to Sales
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Share URL -->
+        <div class="url-card">
+          <div class="url-card-hdr">
+            <div>
+              <div class="url-card-title">Share your results</div>
+              <div class="url-card-sub">Anyone with this link sees your exact inputs &amp; results</div>
+            </div>
+            <button class="url-copy-btn" id="copyBtn">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              Copy link
+            </button>
+          </div>
+          <div class="url-display" id="urlDisplay" onclick="copyUrl()"></div>
+        </div>
+
+        <!-- Customer Quotes -->
+        <div style="margin-top:20px;margin-bottom:12px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:10px">What customers say</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px">
+              <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:4px;font-style:italic">&ldquo;By moving to the Momentus Platform, we reduced our workload by <span style="color:#F5DA41;font-weight:700">60%</span>.&rdquo;</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:600">Mandurah Performing Arts Center</div>
+            </div>
+            <div style="background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px">
+              <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:4px;font-style:italic">&ldquo;Revenue can&rsquo;t slip through the cracks &mdash; we&rsquo;ve seen <span style="color:#F5DA41;font-weight:700">7&ndash;15% revenue growth</span>.&rdquo;</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:600">Minneapolis Convention Center</div>
+            </div>
+            <div style="background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px">
+              <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:4px;font-style:italic">&ldquo;<span style="color:#F5DA41;font-weight:700">83% time savings</span> for checking availability and responding to inquiries.&rdquo;</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:600">Alerus Center (Arena)</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end results -->
+    </div><!-- end rinner -->
+  </div><!-- end right -->
+
+</div><!-- end layout -->
+</div><!-- end layout-outer -->
+
+<div class="toast" id="toast">&#10003; Link copied!</div>
+
+<script>
+// ── VENUE CONFIGURATIONS ────────────────────────────────────────────
+// All processes rated "Needs Improvement" (N) — the baseline assumption.
+// Revenue calc: r * revEvents (revenue-generating events only)
+// Expense calc: e * ne (ALL events, per Excel methodology)
+// Hours calc:   h * ne (ALL events) + 2 overhead hrs/event
+var VC = {
+
+  convention: {
+    name: 'Convention Center', icon: '🏛', color: '#4146E0',
+    desc: 'Conference halls & large event facilities',
+    isCorporate: false,
+    // Excel input order: Events, Revenue/Event, % Generating
+    eventsLabel: 'Number of Events (annually)',
+    ne: 45, rpe: 100000, revPct: 100,
+    neMax: 500, neStep: 5,
+    rpeMax: 500000, rpeStep: 5000, rpeMaxLabel: '$500k',
+    rpeLbl: 'Revenue per Event (average)',
+    hasRev: true,
+    onboardMo: 3,
+    // Rates from "How ROI is Calculated" tab — Needs Improvement row
+    procs: {
+      booking:    { lb: 'Booking & Forecasting',         r: 3000, e: 200, h: 8 },
+      planning:   { lb: 'Event Planning',                r: 3000, e: 200, h: 8 },
+      space:      { lb: 'Space Utilization & Analytics', r: 2000, e: 100, h: 4 },
+      operations: { lb: 'Event Operations',              r: 2000, e: 200, h: 8 },
+      accounting: { lb: 'Accounting & Spending',         r: 2000, e: 100, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 2000, e: 100, h: 4 },
+    }
+  },
+
+  performing: {
+    name: 'Performing Arts Center', icon: '🎭', color: '#B266E4',
+    desc: 'Theaters, concert halls & cultural venues',
+    isCorporate: false,
+    // Excel input order: Events, Revenue/Event, % Generating
+    eventsLabel: 'Number of Events (annually)',
+    ne: 80, rpe: 10000, revPct: 80,
+    neMax: 500, neStep: 5,
+    rpeMax: 100000, rpeStep: 1000, rpeMaxLabel: '$100k',
+    rpeLbl: 'Revenue per Event (average)',
+    hasRev: true,
+    onboardMo: 3,
+    procs: {
+      booking:    { lb: 'Booking & Forecasting',         r: 300, e: 100, h: 4 },
+      planning:   { lb: 'Event Planning',                r: 300, e: 100, h: 4 },
+      space:      { lb: 'Space Utilization & Analytics', r: 200, e:  50, h: 2 },
+      operations: { lb: 'Event Operations',              r: 200, e: 200, h: 8 },
+      accounting: { lb: 'Accounting & Spending',         r: 200, e: 100, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 200, e:  50, h: 2 },
+    }
+  },
+
+  highered: {
+    name: 'Higher Education', icon: '🎓', color: '#34d399',
+    desc: 'Universities, colleges & campus event spaces',
+    isCorporate: false,
+    // Excel input order: Large Events, Revenue/Large Event, % Generating
+    // (Space Reservations and Small Events removed — don't affect calculations)
+    eventsLabel: 'Number of Large Events (annually)',
+    ne: 400, rpe: 15000, revPct: 50,
+    neMax: 2000, neStep: 25,
+    rpeMax: 100000, rpeStep: 1000, rpeMaxLabel: '$100k',
+    rpeLbl: 'Revenue per Large Event (average)',
+    hasRev: true,
+    onboardMo: 6,
+    procs: {
+      booking:    { lb: 'Intake & Booking Process',      r: 600, e: 100, h: 4 },
+      planning:   { lb: 'Event Planning',                r: 600, e: 200, h: 8 },
+      space:      { lb: 'Space Utilization & Analytics', r: 300, e: 100, h: 4 },
+      operations: { lb: 'Event Operations',              r: 600, e: 100, h: 4 },
+      accounting: { lb: 'Accounting & Spending',         r: 300, e: 100, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 300, e: 100, h: 4 },
+    }
+  },
+
+  stadium: {
+    name: 'Stadium & Arena', icon: '🏟', color: '#f97316',
+    desc: 'Sports venues, arenas & entertainment spaces',
+    isCorporate: false,
+    // Excel input order: Events, Revenue/Event, % Generating
+    eventsLabel: 'Number of Events (annually)',
+    ne: 100, rpe: 10000, revPct: 90,
+    neMax: 500, neStep: 5,
+    rpeMax: 500000, rpeStep: 5000, rpeMaxLabel: '$500k',
+    rpeLbl: 'Revenue per Event (average)',
+    hasRev: true,
+    onboardMo: 3,
+    procs: {
+      booking:    { lb: 'Booking & Forecasting',         r: 300, e: 100, h: 4 },
+      planning:   { lb: 'Event Planning',                r: 300, e: 100, h: 4 },
+      space:      { lb: 'Space Utilization & Analytics', r: 200, e:  50, h: 2 },
+      operations: { lb: 'Event Operations',              r: 200, e: 200, h: 8 },
+      accounting: { lb: 'Accounting & Spending',         r: 200, e: 100, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 200, e:  50, h: 2 },
+    }
+  },
+
+  corporate: {
+    name: 'Corporate', icon: '🏢', color: '#60a5fa',
+    desc: 'Corporate campuses, offices & workplace events',
+    isCorporate: true,
+    // Excel: Campuses/Spaces/Employees are context only — don't affect calcs
+    // Only input that drives calculation: Number of Events (annually)
+    eventsLabel: 'Number of Events (annually)',
+    ne: 800, rpe: 0, revPct: 0,
+    neMax: 5000, neStep: 50,
+    rpeMax: 0, rpeStep: 0, rpeMaxLabel: '',
+    rpeLbl: '',
+    hasRev: false,
+    onboardMo: 6,
+    procs: {
+      booking:    { lb: 'Employee Booking & Intake',     r: 0, e: 120, h: 4 },
+      planning:   { lb: 'Event Planning',                r: 0, e: 240, h: 8 },
+      space:      { lb: 'Space Utilization & Analytics', r: 0, e: 120, h: 4 },
+      operations: { lb: 'Event Operations',              r: 0, e: 120, h: 4 },
+      accounting: { lb: 'Accounting & Spending',         r: 0, e: 120, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 0, e: 120, h: 4 },
+    }
+  },
+
+  other: {
+    // Uses Stadium & Arena logic per instructions
+    name: 'Other Venue Type', icon: '🏠', color: '#94a3b8',
+    desc: 'Exhibition organizers, casino resorts, hotels and more',
+    isCorporate: false,
+    eventsLabel: 'Number of Events (annually)',
+    ne: 100, rpe: 10000, revPct: 90,
+    neMax: 500, neStep: 5,
+    rpeMax: 500000, rpeStep: 5000, rpeMaxLabel: '$500k',
+    rpeLbl: 'Revenue per Event (average)',
+    hasRev: true,
+    onboardMo: 3,
+    procs: {
+      booking:    { lb: 'Booking & Forecasting',         r: 300, e: 100, h: 4 },
+      planning:   { lb: 'Event Planning',                r: 300, e: 100, h: 4 },
+      space:      { lb: 'Space Utilization & Analytics', r: 200, e:  50, h: 2 },
+      operations: { lb: 'Event Operations',              r: 200, e: 200, h: 8 },
+      accounting: { lb: 'Accounting & Spending',         r: 200, e: 100, h: 4 },
+      reporting:  { lb: 'Reporting & KPIs',              r: 200, e:  50, h: 2 },
+    }
+  },
+};
+
+// ── STATE ────────────────────────────────────────────────────────────
+var state = { venueKey: '', ne: 50, rpe: 75000, revPct: 100 };
+
+// ── FORMATTERS ────────────────────────────────────────────────────────
+function fUSD(n) { return new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }).format(n); }
+function fNum(n) { return new Intl.NumberFormat('en-US', { maximumFractionDigits:0 }).format(n); }
+function fPct(n) { return Math.round(n * 100) + '%'; }
+function bw(v, mx) { if (!mx) return '0%'; return Math.min(100, Math.max(2, (v / mx) * 100)).toFixed(1) + '%'; }
+function el(id) { return document.getElementById(id); }
+function setText(id, t) { var e = el(id); if (e) e.textContent = t; }
+
+// ── ROI CALCULATION ───────────────────────────────────────────────────
+// Revenue multiplied by revenue-generating events (revEv)
+// Expense multiplied by ALL events (ne) — per Excel methodology
+function calcROI() {
+  var cfg = VC[state.venueKey];
+  if (!cfg) return null;
+  var revEv  = Math.round(state.ne * (state.revPct / 100));
+  var annRev = revEv * state.rpe;
+  var tR = 0, tE = 0, tH = 0;
+  var breakdown = [];
+  for (var key in cfg.procs) {
+    var p = cfg.procs[key];
+    var rev = p.r * revEv;      // revenue uses revenue-generating events
+    var exp = p.e * state.ne;   // expense uses ALL events
+    tR += rev; tE += exp; tH += p.h;
+    breakdown.push({ label: p.lb, rev: rev, exp: exp, hrs: p.h });
+  }
+  var ab    = tR + tE;
+  var ramp  = (cfg.onboardMo === 6) ? 0.5 : 0.75;
+  var yr1   = ab * ramp;
+  var yr2   = ab;
+  var yr3   = ab;
+  var tb    = yr1 + yr2 + yr3;
+  var hrs   = (tH * state.ne) + Math.round(state.ne * 2);
+  return {
+    totalRev: tR, totalExp: tE, annualBen: ab,
+    yr1: yr1, yr2: yr2, yr3: yr3, totalBen: tb,
+    hrsPerEvent: tH, hrsPerYear: hrs,
+    breakdown: breakdown,
+    revGrowth: annRev > 0 ? tR / annRev : 0,
+    annRev: annRev, cfg: cfg
+  };
+}
+
+// ── RENDER RESULTS ────────────────────────────────────────────────────
+function renderResults() {
+  var r = calcROI();
+  if (!r) return;
+  var cfg = r.cfg;
+
+  // Hero — corporate: savings primary; others: revenue primary
+  if (cfg.isCorporate) {
+    setText('heroLbl', 'Estimated annual operational savings');
+    setText('heroNum', fUSD(r.totalExp));
+    setText('heroBenefitLabel', 'based on ' + fNum(state.ne) + ' events annually');
+    el('corpRhsNote').style.display = 'block';
+  } else {
+    setText('heroLbl', 'Estimated annual revenue increase');
+    setText('heroNum', fUSD(r.totalRev));
+    setText('heroBenefitLabel', 'total annual benefit (revenue + operational savings)');
+    el('corpRhsNote').style.display = 'none';
+  }
+  setText('heroBenefit', fUSD(r.annualBen));
+
+  // Stat pills
+  setText('statSavings', fUSD(r.totalExp));
+  setText('statHours',   fNum(r.hrsPerYear));
+
+  // 3rd pill: hide for corporate (no revenue growth), show rev growth for others
+  if (cfg.isCorporate) {
+    el('stat3pill').style.display = 'none';
+    // Reflow stat3 to 2-col for corporate
+    el('stat3pill').parentNode.style.gridTemplateColumns = 'repeat(2,1fr)';
+  } else {
+    el('stat3pill').style.display = 'block';
+    el('stat3pill').parentNode.style.gridTemplateColumns = 'repeat(3,1fr)';
+    setText('stat3lbl', 'Rev. Growth');
+    setText('stat3val', fPct(r.revGrowth));
+    setText('stat3sub', 'of current rev.');
+  }
+
+  // Annual breakdown bars
+  var ab = r.annualBen || 1;
+  setText('bvRev',   fUSD(r.totalRev));
+  setText('bvSav',   fUSD(r.totalExp));
+  setText('bvTotal', fUSD(r.annualBen));
+  el('bfRev').style.width = bw(r.totalRev, ab);
+  el('bfSav').style.width = bw(r.totalExp, ab);
+
+  // Hide revenue row for corporate
+  el('revRow').style.display = cfg.isCorporate ? 'none' : 'block';
+
+  // Time savings
+  setText('hrsPerEvent', '~' + r.hrsPerEvent + ' hrs');
+  setText('hrsPerYear',  fNum(r.hrsPerYear) + ' hrs/yr');
+
+  // Venue badge
+  el('rbIcon').textContent        = cfg.icon;
+  el('rbIcon').style.background   = cfg.color + '20';
+  setText('rbName', cfg.name);
+
+  updateShareURL();
+}
+
+// ── META UPDATE (below revenue % slider) ──────────────────────────────
+function updateMeta() {
+  var revEv = Math.round(state.ne * (state.revPct / 100));
+  setText('revEventsMeta', fNum(revEv) + ' revenue events/yr');
+  setText('baselineRevMeta', fUSD(revEv * state.rpe) + ' baseline');
+}
+
+// ── WIRE INPUTS ────────────────────────────────────────────────────────
+function wireInputs(cfg) {
+  // Events
+  var neIn = el('neInput'), neSlider = el('neSlider');
+  neIn.max      = cfg.neMax;
+  neSlider.max  = cfg.neMax;
+  neSlider.step = cfg.neStep;
+  setText('neMax', fNum(cfg.neMax));
+  setText('eventsLabel', cfg.eventsLabel);
+  neIn.value     = state.ne;
+  neSlider.value = state.ne;
+  neIn.oninput = function() { state.ne = +this.value; neSlider.value = this.value; updateMeta(); renderResults(); };
+  neSlider.oninput = function() { state.ne = +this.value; neIn.value = this.value; updateMeta(); renderResults(); };
+
+  // Revenue fields — hidden for corporate
+  if (cfg.hasRev) {
+    el('rpeField').style.display    = 'block';
+    el('revPctField').style.display = 'block';
+    el('corpInfoBox').style.display = 'none';
+    var rpeIn = el('rpeInput'), rpeSlider = el('rpeSlider');
+    rpeSlider.max  = cfg.rpeMax;
+    rpeSlider.step = cfg.rpeStep;
+    rpeIn.max      = cfg.rpeMax;
+    setText('rpeMax', cfg.rpeMaxLabel);
+    setText('rpeLbl', cfg.rpeLbl);
+    rpeIn.value     = state.rpe;
+    rpeSlider.value = state.rpe;
+    rpeIn.oninput = function() { state.rpe = +this.value; rpeSlider.value = this.value; updateMeta(); renderResults(); };
+    rpeSlider.oninput = function() { state.rpe = +this.value; rpeIn.value = this.value; updateMeta(); renderResults(); };
+    var rpSlider = el('revPctSlider');
+    rpSlider.value = state.revPct;
+    rpSlider.oninput = function() { state.revPct = +this.value; el('revPctDisp').textContent = this.value + '%'; updateMeta(); renderResults(); };
+    el('revPctDisp').textContent = state.revPct + '%';
+  } else {
+    el('rpeField').style.display    = 'none';
+    el('revPctField').style.display = 'none';
+    el('corpInfoBox').style.display = 'flex';
+    state.rpe = 0; state.revPct = 0;
+  }
+
+  updateMeta();
+}
+
+// ── ACTIVATE VENUE ─────────────────────────────────────────────────────
+function activateVenue(key, fromURL) {
+  state.venueKey = key;
+  var cfg = VC[key];
+
+  if (!fromURL) {
+    state.ne = cfg.ne;
+    state.rpe = cfg.rpe;
+    state.revPct = cfg.revPct;
+  }
+
+  // Update venue cards
+  document.querySelectorAll('.vc').forEach(function(c) { c.classList.remove('on'); });
+  var card = document.querySelector('[data-key="' + key + '"]');
+  if (card) card.classList.add('on');
+
+  // Show details
+  el('detailsSection').style.display = 'block';
+  setText('detailsSubtitle', 'Pre-filled with typical values for a ' + cfg.name + '. Adjust to match your reality.');
+
+  wireInputs(cfg);
+
+  // Show results
+  el('emptyState').style.display = 'none';
+  el('results').style.display    = 'block';
+
+  renderResults();
+}
+
+// ── VENUE GRID ─────────────────────────────────────────────────────────
+function buildVenueGrid() {
+  var grid = el('venueGrid');
+  for (var key in VC) {
+    var cfg = VC[key];
+    var card = document.createElement('div');
+    card.className = 'vc';
+    card.setAttribute('data-key', key);
+    card.innerHTML = '<div class="vc-icon">' + cfg.icon + '</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div class="vc-name">' + cfg.name + '</div>'
+        + '<div class="vc-desc">' + cfg.desc + '</div>'
+      + '</div>'
+      + '<div class="vc-check">'
+        + '<svg width="10" height="10" fill="none" stroke="#16184E" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'
+      + '</div>';
+    (function(k) { card.addEventListener('click', function() { activateVenue(k, false); }); })(key);
+    grid.appendChild(card);
+  }
+}
+
+// ── SHARE URL ────────────────────────────────────────────────────────────
+function buildURL() {
+  var base = window.location.origin + window.location.pathname;
+  var p = new URLSearchParams();
+  p.set('vt', state.venueKey);
+  p.set('ne', state.ne);
+  p.set('rpe', state.rpe);
+  p.set('rp', state.revPct);
+  return base + '?' + p.toString();
+}
+function updateShareURL() {
+  var d = el('urlDisplay');
+  if (d) d.textContent = buildURL();
+}
+function copyUrl() {
+  var u = buildURL();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(u).then(showToast).catch(fallbackCopy.bind(null, u));
+  } else {
+    fallbackCopy(u);
+  }
+}
+function fallbackCopy(u) {
+  var ta = document.createElement('textarea');
+  ta.value = u; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); showToast(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function showToast() {
+  var t = el('toast');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2400);
+}
+
+// ── LOAD FROM URL ─────────────────────────────────────────────────────
+function loadFromURL() {
+  var p = new URLSearchParams(window.location.search);
+  var vt = p.get('vt');
+  if (vt && VC[vt]) {
+    var cfg = VC[vt];
+    state.ne     = p.has('ne')  ? +p.get('ne')  : cfg.ne;
+    state.rpe    = p.has('rpe') ? +p.get('rpe') : cfg.rpe;
+    state.revPct = p.has('rp')  ? +p.get('rp')  : cfg.revPct;
+    activateVenue(vt, true);
+  }
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  buildVenueGrid();
+  el('copyBtn').addEventListener('click', copyUrl);
+  el('urlDisplay').addEventListener('click', copyUrl);
+  el('resetBtn').addEventListener('click', function() { activateVenue(state.venueKey, false); });
+  loadFromURL();
+});
+</script>
+</body>
+</html>
